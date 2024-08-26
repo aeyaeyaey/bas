@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_index_inherit" inherit_id="website_hr_recruitment.index">
+        <xpath expr="//h5" position="replace"/>
+    </template>
+
+    <template id="custom_job_detail_inherit" inherit_id="website_hr_recruitment.detail">
+        <!-- İlk Apply Now Butonunu Düzenle -->
+        <xpath expr="//div[@class='float-end']" position="replace">
+            <div class="float-end">
+                <a role="button" t-attf-href="/jobs/apply/#{slug(job)}" class="btn btn-primary btn-lg float-end">Apply Now!</a>
+            </div>
+            <t t-if="request.env.user._is_public()">
+                <div class="alert alert-warning mt-2" role="alert">
+                    Başvuru yapmak için şimdi <a href="/web/signup" class="alert-link">kayıt ol</a>!
+                </div>
+            </t>
+            <t t-if="not request.env.user._is_public() and request.env.user.karma &lt; 1">
+                <div class="alert alert-warning mt-2" role="alert">
+                    Lütfen mailinizi doğrulayıp <a t-attf-href="/profile/user/#{request.env.user.id}" class="alert-link">profil bilgilerinizi</a> doldurunuz!
+                </div>
+            </t>
+        </xpath>
+
+        <!-- İkinci Apply Now Butonunu Düzenle -->
+        <xpath expr="//div[@class='text-center']//a[@role='button']" position="replace">
+            <div class="text-center">
+                <a role="button" t-attf-href="/jobs/apply/#{slug(job)}" class="btn btn-primary btn-lg">Apply Now!</a>
+                <t t-if="request.env.user._is_public()">
+                    <div class="alert alert-warning mt-2" role="alert">
+                        Başvuru yapmak için şimdi <a href="/web/signup" class="alert-link">kayıt ol</a>!
+                    </div>
+                </t>
+                <t t-if="not request.env.user._is_public() and request.env.user.karma &lt; 1">
+                    <div class="alert alert-warning mt-2" role="alert">
+                        Lütfen mailinizi doğrulayıp <a t-attf-href="/profile/user/#{request.env.user.id}" class="alert-link">profil</a> bilgilerinizi doldurunuz!
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+
+
+
+
+    <!-- Profil Sayfasındaki Kurs Bilgilerini Kaldır -->
+    <template id="remove_completed_and_followed_courses" inherit_id="website_profile.user_profile_content">
+        <xpath expr="//div[@class='mb32']" position="replace"/>
+        <xpath expr="//div[@class='mb32']" position="replace"/>
+
+    </template>
+
+    <template id="remove_certification_tab_content" inherit_id="website_slides_survey.user_profile_content">
+        <xpath expr="//div[@class='mb32']" position="replace"/>
+        <xpath expr="//a[@href='#profile_tab_content_certification']" position="replace"/>
+        <xpath expr="//div[@id='profile_tab_content_certification']" position="replace"/>
+    </template>
+
+    <template id="remove_badges" inherit_id="website_profile.user_badges">
+        <xpath expr="//div[@class='text-end d-inline-block pull-right']" position="replace"/>
+    </template>
+
+
+
+
+
+
+
+
+
+
+</odoo>

@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+
+
+        <!-- Inherit the hr_kanban_view_applicant view to modify the 'Hired' label -->
+        <record id="view_hr_form_view_applicant_inherit" model="ir.ui.view">
+            <field name="name">hr.form.view.applicant.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email_cc']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+         <!-- Stage ID domainini güncelle -->
+        <record id="view_hr_applicant_form_inherited_stage_id" model="ir.ui.view">
+            <field name="name">hr.applicant.form.stage.id.update</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form_interviewer"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='stage_id']" position="attributes">
+                    <attribute name="domain">[]</attribute> <!-- Domain tanımını boş bırakıyoruz veya uygun bir domain tanımı ekleyebilirsiniz -->
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+
+
+    </data>
+</odoo>

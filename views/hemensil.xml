@@ -1,0 +1,87 @@
+ <!-- Group fields in pairs -->
+                <group>
+                    <group>
+                        <field name="partner_tc_kimlik_no"/>
+                        <field name="partner_il"/>
+                    </group>
+                    <group>
+                        <field name="partner_ilce"/>
+                        <field name="partner_lise"/>
+                    </group>
+                    <group>
+                        <field name="partner_adres"/>
+                        <field name="partner_birth_date"/>
+                    </group>
+                    <group>
+                        <field name="partner_birth_place"/>
+                        <field name="partner_school_email"/>
+                    </group>
+                    <group>
+                        <field name="partner_twitter_account"/>
+                        <field name="partner_facebook_account"/>
+                    </group>
+                    <group>
+                        <field name="partner_instagram_account"/>
+                        <field name="partner_linkedin_account"/>
+                    </group>
+                    <group>
+                        <field name="partner_uni"/>
+                        <field name="partner_fak"/>
+                    </group>
+                    <group>
+                        <field name="partner_bolum"/>
+                        <field name="partner_nationality"/>
+                    </group>
+                    <group>
+
+                        <field name="partner_gender"/>
+                    </group>
+                </group>
+
+
+ <!-- Group fields in pairs -->
+                <separator string="Kişisel Bilgiler"/>
+                <group>
+                    <separator/>
+                    <group>
+                        <field name="partner_nationality"/>
+                        <field name="partner_tc_kimlik_no"/>
+                        <field name="partner_birth_place"/>
+                    </group>
+                    <group>
+                        <field name="partner_gender"/>
+                        <field name="partner_birth_date"/>
+                    </group>
+
+                    <separator/>
+
+                    <group>
+                        <field name="partner_il"/>
+                        <field name="partner_ilce"/>
+                    </group>
+                    <group>
+                        <field name="partner_adres"/>
+                    </group>
+
+                    <separator/>
+
+                    <group>
+                        <field name="partner_uni"/>
+                        <field name="partner_fak"/>
+                    </group>
+                    <group>
+                        <field name="partner_bolum"/>
+                        <field name="partner_school_email"/>
+                    </group>
+
+                    <separator/>
+
+                    <group>
+                        <field name="partner_twitter_account"/>
+                        <field name="partner_facebook_account"/>
+                    </group>
+                    <group>
+                        <field name="partner_instagram_account"/>
+                        <field name="partner_linkedin_account"/>
+                    </group>
+                </group>

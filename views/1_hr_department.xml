@@ -1,0 +1,131 @@
+<odoo>
+    <data>
+        <!-- Form view customization -->
+        <record id="view_department_form" model="ir.ui.view">
+            <field name="name">hr.department.form</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/field[@name='company_id']" position="after">
+                    <field name="capacity"/>
+                    <field name="hami_id"/>
+                    <field name="sorumlu_id"/>
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_department_form_custom" model="ir.ui.view">
+            <field name="name">hr.department.form.custom</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <group string="Lokasyon Bilgileri">
+                        <field name="ilce_id" options="{'no_create': True}"/>
+                        <field name="mahalle_id" options="{'no_create': True}"/>
+                        <field name="address_line"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <!-- List view customization KAPASİTE -->
+        <record id="view_department_tree_custom" model="ir.ui.view">
+            <field name="name">hr.department.tree.custom</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='manager_id']" position="after">
+                    <field name="capacity" string="Kapasite"/>
+                </xpath>
+                <xpath expr="//field[@name='manager_id']" position="before">
+                    <field name="ilce_id" string="İlçe"/>
+                    <field name="mahalle_id" string="Mahalle"/>
+                </xpath>
+                <xpath expr="//field[@name='manager_id']" position="after">
+                    <field name="hami_id" string="Hami"/>
+
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="replace">
+
+                </xpath>
+            </field>
+        </record>
+
+        <!--                <record id="view_department_kanban_custom1" model="ir.ui.view">-->
+        <!--                    <field name="name">hr.department.kanban.custom1</field>-->
+        <!--                    <field name="model">hr.department</field>-->
+        <!--                    <field name="inherit_id" ref="hr.hr_department_view_kanban"/>-->
+        <!--                    <field name="arch" type="xml">-->
+        <!--                        <xpath expr="//button[@name='158']" position="before">-->
+        <!--                            <field name="capacity" eval="5" invisible="1"/>-->
+        <!--                        </xpath>-->
+        <!--                        <xpath expr="//button[@name='158']" position="after">-->
+        <!--                            <div t-if="record.capacity.raw_value" class="o_kanban_primary_right">-->
+        <!--                                <span style="margin-top: 10px; font-weight: bold;">Kapasite: <t t-esc="record.capacity.raw_value"/></span>-->
+        <!--                            </div>-->
+        <!--                        </xpath>-->
+        <!--                    </field>-->
+        <!--                </record>-->
+
+        <record id="view_department_kanban_custom" model="ir.ui.view">
+            <field name="name">hr.department.kanban.custom</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.hr_department_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='158']" position="before">
+                    <field name="capacity" eval="5" invisible="1"/>
+                    <field name="ilce_id" eval="5" invisible="1"/>
+                    <field name="mahalle_id" eval="5" invisible="1"/>
+                    <field name="display_location" eval="5" invisible="1"/>
+                    <field name="hami_id" eval="5" invisible="1"/>
+                    <field name="sorumlu_id" eval="5" invisible="1"/>
+                    <field name="full_icons" invisible="1"/>
+                    <field name="extra_icons" invisible="1"/>
+                    <field name="icon_range" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//button[@name='158']" position="after">
+                    <div t-if="record.capacity.raw_value" class="o_kanban_primary_right">
+                        <span t-att-style="record.total_employee.raw_value &gt; record.capacity.raw_value ? 'color: red;' : ''"
+                              style="margin-top: 10px; font-weight: bold;">
+                            Kapasite: <t t-esc="record.capacity.raw_value"/>
+                        </span>
+                        <div t-if="record.total_employee.raw_value &gt; record.capacity.raw_value" style="color: red; font-weight: bold">
+                            Kapasite Aşıldı !!!
+                        </div>
+                    </div>
+                </xpath>
+
+                <xpath expr="//div[@class='o_kanban_manage_button_section']" position="after">
+                    <div t-if="record.display_location.raw_value" class="o_kanban_primary_right">
+                        <span t-esc="record.display_location.raw_value"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//div[@class='o_kanban_card_lower_content']" position="inside">
+                    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                        <div style="display: flex; justify-content: space-between; width: 40%;">
+                            <b style="margin-right: 10px;">Ev Hamisi:</b>
+                            <span t-if="record.hami_id.raw_value"><t t-esc="record.hami_id.value"/></span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; width: 40%;">
+                            <b style="margin-right: 10px;">Ev Sorumlusu:</b>
+                            <span t-if="record.sorumlu_id.raw_value"><t t-esc="record.sorumlu_id.value"/></span>
+                        </div>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+
+
+
+    </data>
+</odoo>
+

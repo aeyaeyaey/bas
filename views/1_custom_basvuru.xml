@@ -1,0 +1,183 @@
+<odoo>
+    <data>
+
+        <!-- Başlıklardaki değişiklikler -->
+        <record id="hr_recruitment.action_hr_job" model="ir.actions.act_window">
+            <field name="name">Başvuru Yönetimi</field>
+            <field name="res_model">hr.job</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="hr_recruitment.action_hr_job_applications" model="ir.actions.act_window">
+            <field name="name">Aktif Başvurular</field>
+            <field name="res_model">hr.applicant</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="view_hr_job_simple_form_inherit" model="ir.ui.view">
+            <field name="name">hr.job.simple.form.inherit</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_job_simple_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                    <attribute name="string">İlan Başlığı</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- *************************************************** -->
+
+        <!-- Inherit the form view to change tab headers -->
+        <record id="view_hr_job_form_tabs_inherit" model="ir.ui.view">
+            <field name="name">hr.job.form.tabs.inherit</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+                <!-- Change Recruitment tab header -->
+                <xpath expr="//page[@name='recruitment_page']" position="attributes">
+                    <attribute name="string">İlan Detayları</attribute>
+                </xpath>
+                <!-- Change Job Summary tab header -->
+                <xpath expr="//page[@name='job_description_page']" position="attributes">
+                    <attribute name="string">İlan Özeti</attribute>
+                </xpath>
+                <!-- Change Process Details tab header -->
+            </field>
+        </record>
+
+        <record id="view_hr_job_form_fields_inherit" model="ir.ui.view">
+            <field name="name">hr.job.form.fields.inherit</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+                <field name="no_of_recruitment" position="attributes">
+                    <attribute name="string">Kapasite</attribute>
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="string">Düzenleyen</attribute>
+                </field>
+                <field name="interviewer_ids" position="attributes">
+                    <attribute name="string">Sorumlular</attribute>
+                </field>
+                <xpath expr="//field[@name='department_id']" position="after">
+                    <field name="tarih_son" string="İlanın Yayından Kalkacağı Tarih"/>
+                    <button name="clear_tarih_son" string="Temizle" type="object" class="btn btn-sm btn-secondary"
+                            style="margin-left: auto; padding: 2px 8px; font-size: 12px; display: block; text-align: right;"/>
+                </xpath>
+
+
+
+            </field>
+        </record>
+
+
+        <record id="view_job_form_inherit_remove_address_id" model="ir.ui.view">
+            <field name="name">hr.job.form.remove.address_id</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_job_survey"/>
+            <field name="arch" type="xml">
+                <!-- address_id alanını kaldır -->
+                <xpath expr="//field[@name='address_id']" position="replace">
+                    <!-- Boş bir XML öğesi koyarak alanı kaldır -->
+                    <field name="address_id" position="replace"/>
+                </xpath>
+                <!-- address_id ile ilgili label öğesini kaldır -->
+                <xpath expr="//label[@for='address_id']" position="replace"/>
+                <!-- address_id ile ilgili div öğesini kaldır -->
+                <xpath expr="//div[field[@name='address_id']]" position="replace"/>
+                <xpath expr="//field[@name='website_published']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <!--                <field name="website_id" options="{'no_create': True}" domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]" groups="website.group_multi_website"/>-->
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="hr_recruitment_survey.hr_job_survey_inherit" model="ir.ui.view">
+            <field name="active">False</field>
+        </record>
+
+        <record id="hrjobormseparator" model="ir.ui.view">
+            <field name="name">hr.job.form.inherit.separator</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="website_hr_recruitment.hr_job_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='job_details']" position="before">
+                    <separator />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Contract Type fieldını kaldırma -->
+        <record id="view_hr_job_form_remove_contract_type" model="ir.ui.view">
+            <field name="name">hr.job.form.remove.contract.type</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='contract_type_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='department_id']" position="after">
+                    <field name="website_published" string="Is Published"/>
+                    <field name="survey_id" string="Is survey"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit the hr_job_survey view to modify the buttons -->
+        <record id="view_hr_job_survey_modify_buttons" model="ir.ui.view">
+            <field name="name">hr.job.survey.modify.buttons</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_job_survey"/>
+            <field name="arch" type="xml">
+                <!-- Remove the Trackers button -->
+                <xpath expr="//button[@name='198']" position="replace"/>
+                <!-- Change the string of the Job Applications button -->
+                <xpath expr="//field[@name='all_application_count']" position="attributes">
+                    <attribute name="string">Tüm Başvurular</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit the hr_kanban_view_applicant view to modify the 'Hired' label -->
+        <record id="view_hr_kanban_view_applicant_inherit" model="ir.ui.view">
+            <field name="name">hr.kanban.view.applicant.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
+            <field name="arch" type="xml">
+                <!-- Change 'Hired' to 'ONAYLANDI' and adjust font size -->
+                <xpath expr="//span[contains(@class, 'bg-success')]" position="replace">
+                    <span class="bg-success o_small_text">ONAYLANDI</span>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_job_kanban_inherit" model="ir.ui.view">
+            <field name="name">hr.job.kanban.inherit</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr_recruitment.view_hr_job_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//li[a/field[@name='no_of_recruitment']]" position="replace"/>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </data>
+</odoo>

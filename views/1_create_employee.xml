@@ -1,0 +1,155 @@
+<odoo>
+    <data>
+        <!-- CREATE EMPLOYEE SAFASINDAN KALDIRILAN FİELDLAR VE PAGELER -->
+
+        <record id="view_employee_form_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherited</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[field[@name='mobile_phone']]" position="replace"/>
+
+                <!-- job_id alanını kaldır -->
+                <xpath expr="//field[@name='job_id']" position="replace"/>
+
+                <!-- coach_id alanını kaldır -->
+                <xpath expr="//field[@name='coach_id']" position="replace"/>
+                <xpath expr="//field[@name='private_email']" position="replace"/>
+                <xpath expr="//field[@name='phone']" position="replace"/>
+
+                <!-- job_title alanını kaldır -->
+                <xpath expr="//field[@name='job_title']" position="replace"/>
+
+                <!-- category_ids alanını kaldır -->
+                <xpath expr="//field[@name='category_ids']" position="replace"/>
+
+                <!-- Work Information sayfasını kaldır -->
+                <xpath expr="//page[@name='public']" position="replace"/>
+
+
+
+                <!-- bank_account_id alanını kaldır -->
+                <xpath expr="//field[@name='bank_account_id']" position="replace"/>
+
+                <!-- lang alanını kaldır -->
+                <xpath expr="//field[@name='lang']" position="replace"/>
+
+                <!-- study_field,school alanını kaldır -->
+                <xpath expr="//field[@name='study_field']" position="replace"/>
+                <xpath expr="//field[@name='study_school']" position="replace"/>
+
+                <!-- km_home_work alanını kaldır -->
+                <xpath expr="//label[@for='km_home_work']" position="replace"/>
+                <xpath expr="//div[@name='div_km_home_work']" position="replace"/>
+
+                <!-- country_id alanını içeren grubu kaldır -->
+                <xpath expr="//group[field[@name='country_id']]" position="replace"/>
+
+
+                <!-- has_work_permit separator ve ilgili alanları kaldır -->
+                <xpath expr="//separator[@name='has_work_permit']" position="replace"/>
+                <xpath expr="//field[@name='visa_no']" position="replace"/>
+                <xpath expr="//field[@name='permit_no']" position="replace"/>
+                <xpath expr="//field[@name='visa_expire']" position="replace"/>
+                <xpath expr="//field[@name='work_permit_expiration_date']" position="replace"/>
+                <xpath expr="//field[@name='work_permit_name']" position="replace"/>
+                <xpath expr="//field[@name='has_work_permit']" position="replace"/>
+
+                <!-- Family Status grubunu replace ederek Vatandaşlık Bilgileri grubuna çevir -->
+                <xpath expr="//group[field[@name='marital']]" position="replace">
+                    <group string="Kişisel Bilgiler">
+                        <separator name="kimlik_bilgiler" string="Kimlik Bilgileri" style="margin-top: 0px; width: 50%"/>
+                        <field name="x_nation"/>
+                        <field name="x_tck"/>
+                        <field name="x_b_date"/>
+                        <field name="x_b_place"/>
+                        <field name="x_gender"/>
+                        <separator name="egitim_bilgileri" string="Eğitim Bilgiler" style="width: 50%"/>
+                        <field name="x_uni" />
+                        <field name="x_fakulte" />
+                        <field name="x_bolum" />
+                    </group>
+                </xpath>
+
+
+            </field>
+        </record>
+
+        <record id="view_employee_form_replace_address_home_id" model="ir.ui.view">
+            <field name="name">hr.employee.form.replace.address.home.id</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='department_id']" position="before">
+                    <field name="x_partner" string="Kullanıcı Adı:"/>
+
+                </xpath>
+
+                <!-- address_home_id alanını replace ederek il_id, ilce_id ve adres alanlarını ekle -->
+                <xpath expr="//field[@name='address_home_id']" position="replace">
+                    <group>
+                        <separator name="adres_bilgi" string="Adres Bilgileri" style=""/>
+                        <field name="x_il"/>
+                        <field name="x_ilce"/>
+                        <field name="x_adres"/>
+                        <separator name="iletisim_bilgileri" string="İletişim Bilgileri" style=""/>
+                        <field name="private_email" string="Şahsi E-Maili:"/>
+                        <field name="x_school_email" />
+                        <field name="phone" readonly="1" string="Telefon: "/>
+
+
+                        <separator name="social_media" string="Sosyal Medya" />
+                        <field name="x_twitter"/>
+                        <field name="x_facebook"/>
+                        <field name="x_instagram"/>
+                        <field name="x_linkedin"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//group[field[@name='certificate']]" position="replace"/>
+                <!--                <xpath expr="//group[field[@name='emergency_contact']]" position="replace"/>-->
+
+                <!-- hr_settings sayfasını seç ve adını Emergency olarak değiştir -->
+
+                <xpath expr="//page[@name='hr_settings']" position="replace">
+                    <page name="emergency" string="Emergency">
+                        <group>
+                            <field name="emergency_contact"/>
+                            <field name="emergency_phone"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_employee_tree_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.tree.inherited</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <!-- İlgili sütunları tablodan kaldır -->
+                <xpath expr="//field[@name='job_id']" position="replace"/>
+                <xpath expr="//field[@name='activity_date_deadline']" position="replace"/>
+                <xpath expr="//field[@name='activity_ids']" position="replace"/>
+                <xpath expr="//field[@name='work_phone']" position="replace"/>
+                <xpath expr="//field[@name='work_email']" position="replace"/>
+
+                <!-- name sütunundan sonra yeni sütunları ekle -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="phone" string="Telefon:"/>
+                    <field name="private_email" string="Email Adresi:"/>
+                    <field name="x_uni"/>
+                    <field name="x_fakulte"/>
+                    <field name="x_bolum"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
+
+
+

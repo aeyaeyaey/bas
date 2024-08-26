@@ -1,0 +1,114 @@
+<odoo>
+
+    <!--    <record id="view_partner_form_tckimlikno" model="ir.ui.view">-->
+    <!--        <field name="name">res.partner.form.tckimlikno</field>-->
+    <!--        <field name="model">res.partner</field>-->
+    <!--        <field name="inherit_id" ref="base.view_partner_form"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <field name="vat" position="after">-->
+    <!--                <field name="tckimlikno"/>-->
+    <!--                <field name="il_id"/>-->
+    <!--            </field>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="view_users_form_inherit" model="ir.ui.view">
+
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <label for="login" position="before">
+                <field name="tckimlikno" string="tckno" />
+            </label>
+        </field>
+    </record>
+
+    <record id="hr_applicant_form_inherit" model="ir.ui.view">
+        <field name="name">hr.applicant.form.inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Remove fields -->
+            <xpath expr="//field[@name='linkedin_profile']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='type_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='source_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='medium_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+
+           <!-- Add new fields after the group containing interviewer_ids -->
+        <xpath expr="//field[@name='interviewer_ids']/ancestor::group" position="after">
+            <!-- Separator -->
+            <separator string="Kişisel Bilgiler"/>
+
+            <!-- Group fields in pairs -->
+            <group>
+                <!-- First Group -->
+                <group>
+                    <field name="partner_nationality"/>
+                    <field name="partner_tc_kimlik_no"/>
+                    <field name="partner_birth_place"/>
+                    <field name="partner_birth_date" string="Doğum Tarihi"/>
+                    <field name="partner_gender" string="Cinsiyet"/>
+                </group>
+
+                <!-- Second Group -->
+                <group>
+                    <field name="partner_il"/>
+                    <field name="partner_ilce"/>
+                    <field name="partner_adres"/>
+                </group>
+            </group>
+            <separator/>
+            <group>
+                <!-- Third Group -->
+                <group>
+                    <field name="partner_uni"/>
+                    <field name="partner_fak"/>
+                    <field name="partner_bolum"/>
+                    <field name="partner_school_email"/>
+                </group>
+
+                <!-- Fourth Group -->
+                <group>
+                    <field name="partner_twitter_account"/>
+                    <field name="partner_facebook_account"/>
+                    <field name="partner_instagram_account"/>
+                    <field name="partner_linkedin_account"/>
+                </group>
+            </group>
+        </xpath>
+            <!-- Make the Job group invisible -->
+            <xpath expr="//group[field[@name='job_id']]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Make the Contract group invisible -->
+            <xpath expr="//group[@name='recruitment_contract']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+
+
+</odoo>
